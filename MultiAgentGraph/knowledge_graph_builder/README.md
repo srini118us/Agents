@@ -15,15 +15,13 @@ The core logic of this multi-agent system resides in the `MultiAgentGraph/knowle
 
 This project is structured to facilitate a modular and scalable multi-agent system. Below is an overview of the key directories and files:
 
-*   **`agents/`**: Contains the implementations of various specialized AI agents, each responsible for a specific task within the knowledge graph generation pipeline. 
+*   **`agents/`**: Contains the implementations of various specialized AI agents, each responsible for a specific task within the knowledge graph generation pipeline.
     *   `researcher.py`: Implements the **Knowledge Extraction Agent**, responsible for gathering raw information.
     *   `synthesizer.py`: Implements the **Knowledge Synthesis Agent**, which processes and refines extracted information.
     *   `mapper.py`: Implements the **Knowledge Graph Builder Agent**, responsible for constructing the graph structure.
 
 *   **`helpers/`**: This consolidated directory contains reusable modules that provide external functionalities (formerly `tools/`) and general utility functions (formerly `utils/`) for the agents and application logic.
-    *   `serpapi_tool.py`, `wikipedia_tool.py`, `research_api_tool.py`: These files contain wrappers or direct implementations for interacting with external services and APIs (e.g., web search) that the agents might use for data collection or validation.
-    *   `graphviz_exporter.py`: This module is crucial for visualizing the knowledge graph, handling the conversion of graph data into a format suitable for Graphviz and generating image outputs.
-    *   `generate_agent_flow_diagram.py`: A script to generate a visual diagram of the multi-agent system's internal flow.
+    *   `serpapi_tool.py`, `wikipedia_tool.py`: These files contain wrappers or direct implementations for interacting with external services and APIs (e.g., web search) that the agents might use for data collection or validation.
     *   `config.py` (if present): Often used for managing application configurations and settings.
 
 *   **`workflows/`**: Defines the orchestration logic and state management for the multi-agent system, particularly if using frameworks like LangChain/LangGraph.
@@ -58,7 +56,6 @@ You can find the source code for this project on GitHub:
     # OPENAI_API_KEY="your_openai_api_key"
     # SERP_API_KEY="your_serpapi_key"
     ```
-    This file is ignored by Git (via the `.gitignore` at the workspace root) to prevent sensitive data from being committed.
 4.  **Run the Streamlit application**:
     ```bash
     streamlit run app.py
@@ -74,20 +71,18 @@ The application generates a visual knowledge graph. Additionally, a static PNG i
 The knowledge graph generation process involves multiple specialized agents working in a coordinated pipeline to transform a user's request into a structured visual roadmap.
 
 ```mermaid
-graph TD
-    A[User Input/Query] --> B[Orchestration Agent]
-    B --> C[Knowledge Extraction Agent]
-    C --> D[Knowledge Synthesis Agent]
-    D --> E[Knowledge Graph Builder Agent]
+graph LR
+    A[User Input/Query] --> B[Orchestration Agent (app.py)]
+    B --> C[Knowledge Extraction Agent (researcher.py)]
+    C --> D[Knowledge Synthesis Agent (synthesizer.py)]
+    D --> E[Knowledge Graph Builder Agent (mapper.py)]
     E --> F[Graph Export/Visualization Agent]
-    F --> G[Streamlit Application]
-    G --> H[Display Knowledge Graph]
-    style E fill:#f9f,stroke:#333,stroke-width:2px
+    F --> G[Display Knowledge Graph]
 ```
 
 Here is a more detailed visual representation of the agent workflow:
 
-![Agent Flow Diagram](agent_flow_diagram.png)
+![Agent Flow Diagram](career_roadmap_agent_flow.png)
 
 *   **User Input/Query**: The process begins with the user providing a specific query or topic for which they want a career roadmap through the Streamlit interface.
 
@@ -99,10 +94,10 @@ Here is a more detailed visual representation of the agent workflow:
 
 *   **Knowledge Graph Builder Agent** (`mapper.py`): Receiving the refined and synthesized data, this agent is responsible for constructing the core knowledge graph structure. It identifies key concepts, career phases, required skills, and the relationships between them, defining these as nodes and edges. Essentially, it translates the processed information into a formal graph data format.
 
-*   **Graph Export/Visualization Agent** (`graphviz_exporter.py`): This agent receives the structured knowledge graph data (nodes and edges) from the Knowledge Graph Builder Agent. It then leverages the Graphviz library to convert this data into a visual representation (DOT language string). This agent is responsible for generating two main outputs:
+*   **Graph Export/Visualization Agent**: This agent receives the structured knowledge graph data (nodes and edges) from the Knowledge Graph Builder Agent. It then leverages the Graphviz library to convert this data into a visual representation (DOT language string). This agent is responsible for generating two main outputs:
     *   **Interactive Streamlit Graph**: The generated DOT output is directly used by the Streamlit application to display an interactive and dynamic version of the career roadmap within the web interface.
     *   **Static PNG File**: A static image file named `career_roadmap.png` is automatically saved in this directory (`MultiAgentGraph/knowledge_graph_builder/`), providing a permanent and easily shareable visual output of the graph.
 
 *   **Streamlit Application** (`app.py`): Beyond its role in orchestration, `app.py` serves as the primary user interface for the entire system. It handles user input, integrates all the agent interactions behind the scenes, and displays the final interactive knowledge graph, providing a seamless user experience.
 
-*   **Display Knowledge Graph**: This represents the ultimate visual output of the system: the fully rendered career roadmap, available both as an interactive component within the Streamlit application and as a static `career_roadmap.png` image file. 
+*   **Display Knowledge Graph**: This represents the ultimate visual output of the system: the fully rendered career roadmap, available both as an interactive component within the Streamlit application and as a static `career_roadmap.png` image file.

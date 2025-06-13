@@ -10,26 +10,26 @@ def create_agent_flow_diagram():
 
     # === Node Definitions with specific styles ===
     # Start Node
-    dot.node('start', '_start_', shape='oval', fillcolor='#E6E6FA', style='filled')
+    dot.node('start', 'User Input', shape='oval', fillcolor='#E6E6FA', style='filled')
 
     # Supervisor Node
-    dot.node('supervisor', 'Supervisor', shape='box', fillcolor='#CCCCFF', style='filled')
+    dot.node('supervisor', 'Orchestration Agent (app.py)', shape='box', fillcolor='#CCCCFF', style='filled')
 
     # Call Nodes (Grey, Box)
-    dot.node('llm_call', 'Llm Call', shape='box', fillcolor='#D3D3D3', style='filled')
-    dot.node('rag_call', 'Rag Call', shape='box', fillcolor='#D3D3D3', style='filled')
-    dot.node('web_call', 'Web Call', shape='box', fillcolor='#D3D3D3', style='filled')
+    dot.node('llm_call', 'Knowledge Extraction Call', shape='box', fillcolor='#D3D3D3', style='filled')
+    dot.node('rag_call', 'Knowledge Synthesis Call', shape='box', fillcolor='#D3D3D3', style='filled')
+    dot.node('web_call', 'Knowledge Graph Builder Call', shape='box', fillcolor='#D3D3D3', style='filled')
 
     # Agent Nodes (Light Purple/Blue, Box)
-    dot.node('llm', 'LLM', shape='box', fillcolor='#CCCCFF', style='filled')
-    dot.node('rag', 'RAG', shape='box', fillcolor='#CCCCFF', style='filled')
-    dot.node('web', 'WEB', shape='box', fillcolor='#CCCCFF', style='filled')
+    dot.node('llm', 'Knowledge Extraction Agent (researcher.py)', shape='box', fillcolor='#CCCCFF', style='filled')
+    dot.node('rag', 'Knowledge Synthesis Agent (synthesizer.py)', shape='box', fillcolor='#CCCCFF', style='filled')
+    dot.node('web', 'Knowledge Graph Builder Agent (mapper.py)', shape='box', fillcolor='#CCCCFF', style='filled')
 
     # Validation Node
-    dot.node('validation', 'Validation', shape='box', fillcolor='#CCCCFF', style='filled')
+    dot.node('validation', 'Graph Export/Visualization Agent', shape='box', fillcolor='#CCCCFF', style='filled')
 
     # Revoked State
-    dot.node('revoked', 'revoked', shape='box', fillcolor='#D3D3D3', style='filled')
+    dot.node('revoked', 'Display Knowledge Graph', shape='box', fillcolor='#D3D3D3', style='filled')
 
     # === Edge Definitions ===
     dot.edge('start', 'supervisor') # Solid line
@@ -50,13 +50,13 @@ def create_agent_flow_diagram():
     dot.edge('web', 'validation')
 
     # Conditional/Revoked paths (dotted lines)
-    dot.edge('supervisor', 'revoked', label='revoked', style='dotted')
-    dot.edge('web_call', 'revoked', label='revoked', style='dotted')
+    dot.edge('supervisor', 'revoked', label='display', style='dotted')
+    dot.edge('web_call', 'revoked', label='display', style='dotted')
 
     # Render the graph to a PNG file
     output_directory = 'MultiAgentGraph/knowledge_graph_builder/'
-    dot.render('agent_flow_diagram', view=False, directory=output_directory)
-    print(f"Agent flow diagram 'agent_flow_diagram.png' generated successfully in {output_directory}")
+    dot.render('career_roadmap_agent_flow', view=False, directory=output_directory)
+    print(f"Agent flow diagram 'career_roadmap_agent_flow.png' generated successfully in {output_directory}")
 
 if __name__ == '__main__':
     create_agent_flow_diagram() 

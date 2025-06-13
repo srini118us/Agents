@@ -1,0 +1,26 @@
+// Stateful Agent System Workflow
+digraph {
+	fontname=Helvetica fontsize=12 nodesep=0.8 rankdir=TB ranksep=1.2
+	start [label="User Input" fillcolor="#E6E6FA" shape=oval style=filled]
+	supervisor [label="Orchestration Agent (app.py)" fillcolor="#CCCCFF" shape=box style=filled]
+	llm_call [label="Knowledge Extraction Call" fillcolor="#D3D3D3" shape=box style=filled]
+	rag_call [label="Knowledge Synthesis Call" fillcolor="#D3D3D3" shape=box style=filled]
+	web_call [label="Knowledge Graph Builder Call" fillcolor="#D3D3D3" shape=box style=filled]
+	llm [label="Knowledge Extraction Agent (researcher.py)" fillcolor="#CCCCFF" shape=box style=filled]
+	rag [label="Knowledge Synthesis Agent (synthesizer.py)" fillcolor="#CCCCFF" shape=box style=filled]
+	web [label="Knowledge Graph Builder Agent (mapper.py)" fillcolor="#CCCCFF" shape=box style=filled]
+	validation [label="Graph Export/Visualization Agent" fillcolor="#CCCCFF" shape=box style=filled]
+	revoked [label="Display Knowledge Graph" fillcolor="#D3D3D3" shape=box style=filled]
+	start -> supervisor
+	supervisor -> llm_call [style=dotted]
+	supervisor -> rag_call [style=dotted]
+	supervisor -> web_call [style=dotted]
+	llm_call -> llm [style=dotted]
+	rag_call -> rag [style=dotted]
+	web_call -> web [style=dotted]
+	llm -> validation
+	rag -> validation
+	web -> validation
+	supervisor -> revoked [label=display style=dotted]
+	web_call -> revoked [label=display style=dotted]
+}
