@@ -1,0 +1,26 @@
+// Stateful Agent System Workflow
+digraph {
+	fontname=Helvetica fontsize=12 nodesep=0.8 rankdir=TB ranksep=1.2
+	start [label=_start_ fillcolor="#E6E6FA" shape=oval style=filled]
+	supervisor [label=Supervisor fillcolor="#CCCCFF" shape=box style=filled]
+	llm_call [label="Llm Call" fillcolor="#D3D3D3" shape=box style=filled]
+	rag_call [label="Rag Call" fillcolor="#D3D3D3" shape=box style=filled]
+	web_call [label="Web Call" fillcolor="#D3D3D3" shape=box style=filled]
+	llm [label=LLM fillcolor="#CCCCFF" shape=box style=filled]
+	rag [label=RAG fillcolor="#CCCCFF" shape=box style=filled]
+	web [label=WEB fillcolor="#CCCCFF" shape=box style=filled]
+	validation [label=Validation fillcolor="#CCCCFF" shape=box style=filled]
+	revoked [label=revoked fillcolor="#D3D3D3" shape=box style=filled]
+	start -> supervisor
+	supervisor -> llm_call [style=dotted]
+	supervisor -> rag_call [style=dotted]
+	supervisor -> web_call [style=dotted]
+	llm_call -> llm [style=dotted]
+	rag_call -> rag [style=dotted]
+	web_call -> web [style=dotted]
+	llm -> validation
+	rag -> validation
+	web -> validation
+	supervisor -> revoked [label=revoked style=dotted]
+	web_call -> revoked [label=revoked style=dotted]
+}

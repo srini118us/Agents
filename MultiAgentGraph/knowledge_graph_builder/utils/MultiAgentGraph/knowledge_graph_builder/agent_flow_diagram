@@ -1,0 +1,20 @@
+// Multi-Agent System Flow
+digraph {
+	compound=true fontname=Helvetica fontsize=12 nodesep=0.8 rankdir=LR ranksep=1.2
+	node [fillcolor=lightyellow fontname=Helvetica shape=box style="rounded,filled"]
+	A [label="User Input/Query" fillcolor="#DCEAFB" shape=ellipse]
+	B [label="Orchestration Agent (app.py)" fillcolor="#CCCCFF"]
+	C [label="Knowledge Extraction Agent (researcher.py)" fillcolor="#D3D3D3"]
+	D [label="Knowledge Synthesis Agent (synthesizer.py)" fillcolor="#D3D3D3"]
+	E [label="Knowledge Graph Builder Agent (mapper.py)" fillcolor="#CCCCFF"]
+	F [label="Graph Export/Visualization Agent (graphviz_exporter.py)" fillcolor="#ADD8E6"]
+	G [label="Streamlit Application (app.py)" fillcolor="#CCCCFF"]
+	H [label="Display Knowledge Graph" fillcolor="#DCEAFB" shape=ellipse]
+	A -> B
+	B -> C
+	C -> D
+	D -> E
+	E -> F
+	F -> G
+	G -> H
+}
