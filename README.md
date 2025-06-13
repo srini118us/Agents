@@ -54,4 +54,4 @@ The knowledge graph generation process involves multiple specialized agents work
 
 *   **Streamlit Application** (`app.py`): Beyond its role as the Orchestration Agent, `app.py` serves as the user interface for the entire system. It presents the input fields for user queries and displays the generated interactive knowledge graph. It integrates all the agent interactions behind the scenes to provide a seamless user experience.
 
-*   **Display Knowledge Graph**: This is the final visual output, which is the rendered career roadmap, presented both interactively within the Streamlit application and as a static PNG image file. 
+*   **Display Knowledge Graph**: This is the final visual output, which is the rendered career roadmap, presented both interactively within the Streamlit application and as a static PNG image file.
