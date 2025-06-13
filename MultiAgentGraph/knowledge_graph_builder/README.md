@@ -72,32 +72,10 @@ The knowledge graph generation process involves multiple specialized agents work
 
 ```mermaid
 graph LR
-    A[User Input/Query] --> B[Orchestration Agent (app.py)]
-    B --> C[Knowledge Extraction Agent (researcher.py)]
-    C --> D[Knowledge Synthesis Agent (synthesizer.py)]
-    D --> E[Knowledge Graph Builder Agent (mapper.py)]
+    A[User Input/Query] --> B[Orchestration Agent]
+    B --> C[Knowledge Extraction Agent]
+    C --> D[Knowledge Synthesis Agent]
+    D --> E[Knowledge Graph Builder Agent]
     E --> F[Graph Export/Visualization Agent]
     F --> G[Display Knowledge Graph]
 ```
-
-Here is a more detailed visual representation of the agent workflow:
-
-![Agent Flow Diagram](career_roadmap_agent_flow.png)
-
-*   **User Input/Query**: The process begins with the user providing a specific query or topic for which they want a career roadmap through the Streamlit interface.
-
-*   **Orchestration Agent** (`app.py`): This agent serves as the central control unit. It receives the user's initial query and intelligently delegates tasks to other specialized agents in a predefined sequence. It manages the overall workflow, ensuring each step is executed and its output is seamlessly passed to the next relevant agent in the pipeline.
-
-*   **Knowledge Extraction Agent** (`researcher.py`): Upon receiving a task from the Orchestration Agent, this agent is responsible for gathering raw, unstructured information from various sources. It might interact with external tools or APIs (e.g., web search, encyclopedias) to collect data relevant to the user's query and the different phases of a career roadmap. Its primary output is raw extracted text or factual data.
-
-*   **Knowledge Synthesis Agent** (`synthesizer.py`): This agent takes the raw information extracted by the Knowledge Extraction Agent. Its crucial role is to process, filter, summarize, and refine this information, transforming it into more coherent, concise, and structured data points. This synthesized information is optimized for subsequent graph construction.
-
-*   **Knowledge Graph Builder Agent** (`mapper.py`): Receiving the refined and synthesized data, this agent is responsible for constructing the core knowledge graph structure. It identifies key concepts, career phases, required skills, and the relationships between them, defining these as nodes and edges. Essentially, it translates the processed information into a formal graph data format.
-
-*   **Graph Export/Visualization Agent**: This agent receives the structured knowledge graph data (nodes and edges) from the Knowledge Graph Builder Agent. It then leverages the Graphviz library to convert this data into a visual representation (DOT language string). This agent is responsible for generating two main outputs:
-    *   **Interactive Streamlit Graph**: The generated DOT output is directly used by the Streamlit application to display an interactive and dynamic version of the career roadmap within the web interface.
-    *   **Static PNG File**: A static image file named `career_roadmap.png` is automatically saved in this directory (`MultiAgentGraph/knowledge_graph_builder/`), providing a permanent and easily shareable visual output of the graph.
-
-*   **Streamlit Application** (`app.py`): Beyond its role in orchestration, `app.py` serves as the primary user interface for the entire system. It handles user input, integrates all the agent interactions behind the scenes, and displays the final interactive knowledge graph, providing a seamless user experience.
-
-*   **Display Knowledge Graph**: This represents the ultimate visual output of the system: the fully rendered career roadmap, available both as an interactive component within the Streamlit application and as a static `career_roadmap.png` image file.
